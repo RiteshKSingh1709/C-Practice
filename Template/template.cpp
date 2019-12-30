@@ -7,13 +7,16 @@ using namespace std;
 template<class T,class K> class Test{
     private:
         T obj;
+        K obj1;
     public:
-        Test(T obj){
+        Test(T obj,K obj1){
             this->obj = obj;
+            this->obj1 = obj1;
         }
 
         void print(){
             cout << obj << endl;
+            cout << obj1 << endl;
         }
         
 };
@@ -30,7 +33,7 @@ void print(int a){
 }
 
 int main(){
-    Test<string,int> test1("Hello");
+    Test<string,int> test1("Hello",5);
     test1.print();
     printIt<string>("Hello");
     printIt<int>(5);
