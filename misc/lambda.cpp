@@ -23,6 +23,14 @@ class Test {
         }
 };
 
+class Check{
+    public:
+        // override the () operator in this class ... and also declared one variable which can access the public function ...
+        bool operator()(string &test){
+            return test.size() == 3;
+        }
+}check1;
+
 void funptr(void (*pFunc)(string),string str){
     pFunc(str);
     return;
@@ -34,6 +42,11 @@ void funptr(void (*pFunc)(string),string str){
 void pFunc(double (*tDivide) (double,double),double a,double b){
     auto result = tDivide(a,b);
     cout << result << endl;
+}
+
+//tempate for passing function as parameter ... 
+void run(function<bool(string &)> check,string t){
+    cout << check(t) << endl;
 }
 int main(){
 
@@ -70,5 +83,26 @@ int main(){
     // passing this as reference to the lambda function ..
     Test test;
     test.run();
+    // vector
+    vector<string> vec{"sachin","saurav","rames","cat"};
+    int size = 5;
+    int count;
+    count  = count_if(vec.begin(),vec.end(),[size](string t){ return t.size() == size;} );
+    cout << "Number of string of length : " <<  count << endl;
+    count = count_if(vec.begin(),vec.end(),check1);
+    cout << "Number of string of length 3 is : " << count << endl;
+
+    // we can also use auto here anyways as written above ... 
+    function<int(int,int)> add = [](int a,int b) { return a + b; };
+    cout << add(5,6) << endl;
+
+    // Mutable lambdas ... 
+    int cats = 5;
+    [cats]() mutable{
+        cats = 8;
+        cout << cats << endl;
+    }();
+    cout << "previous cat valus is still 5 : " << cats << endl;
+    
     return 0;
 }
